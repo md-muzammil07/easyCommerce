@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+  
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './components/home/Home.jsx';
+import Header from './components/header/Header';
+import TemplateProvider from './templates/TemplateProvider';
+import ContextProvider from './context/ContextProvider';
+import Cart from './components/cart/Cart';
+import { Box } from '@material-ui/core';
+import DetailView from './components/product/DetailView';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return (        //templateProvider ke andar children paas kar rahe hu, ye child ko temprovider me nikalna hoga
+    <TemplateProvider> 
+     <ContextProvider>
+      <BrowserRouter>
+        <Header />
+        <Box style={{marginTop:55}}>
+         <Switch>
+           <Route exact path= '/' component={Home} />
+           <Route exact path= '/cart' component={Cart} />
+           <Route exact path= '/product/:id' component={DetailView} />
+         </Switch>
+       </Box>
+      </BrowserRouter>
+     </ContextProvider>
+    </TemplateProvider>
   );
 }
 
